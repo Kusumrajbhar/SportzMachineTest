@@ -1,40 +1,5 @@
 import axios from "axios";
 
-// Add a request interceptor
-axios.interceptors.request.use(
-  function (config) {
-    let expiresAt = localStorage.getItem("expiresAt");
-    if (expiresAt) {
-      const now = new Date();
-      expiresAt = new Date(expiresAt);
-      if (now > expiresAt) {
-        localStorage.clear();
-        window.location.href = "/";
-      }
-    }
-    // Do something before request is sent
-    return config;
-  },
-  function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
-);
-
-// Add a response interceptor
-axios.interceptors.response.use(
-  function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    return response;
-  },
-  function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    return Promise.reject(error);
-  }
-);
-
 export const buildHeader = (headerParams) => {
   const token = localStorage.getItem("token");
   const header = {
@@ -42,8 +7,6 @@ export const buildHeader = (headerParams) => {
     "mintgenie-client-type": "web",
     Authorization: `${token}`,
     ...headerParams,
-    // 'Content-Type': 'application/json',
-    // 'Cache-Control': 'no-cache'
   };
 
   return header;
