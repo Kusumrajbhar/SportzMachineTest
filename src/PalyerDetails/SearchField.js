@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { searchField, noMatchMessage } from "./Style";
+import { Typography } from "@mui/material";
 
 export const SearchField = ({ playerData, searchArr, setSearchArr }) => {
   const [searchedValue, setSearchedValue] = useState("");
 
   const changeHandler = (e) => {
     setSearchedValue(e.value);
-    let searchedData = playerData?.playerList.filter((item) =>
-      item?.PFName.toLocaleLowerCase().includes(e.value.toLocaleLowerCase())
+    let searchedData = playerData?.playerList.filter(
+      (item) =>
+        item?.PFName.toLocaleLowerCase().includes(
+          e.value.toLocaleLowerCase()
+        ) ||
+        item?.TName.toLocaleLowerCase().includes(e.value.toLocaleLowerCase())
     );
     setSearchArr(searchedData);
   };
@@ -25,7 +30,9 @@ export const SearchField = ({ playerData, searchArr, setSearchArr }) => {
       />
 
       {searchedValue && searchArr?.length === 0 && (
-        <div style={noMatchMessage}> Searched Data is Not Present</div>
+        <Typography style={noMatchMessage}>
+          Searched Data is Not Present
+        </Typography>
       )}
     </>
   );

@@ -3,6 +3,8 @@ import { API } from "../Api/Api";
 import { PlayerCards } from "./PlayerCards";
 import Grid from "@mui/material/Grid";
 import { SearchField } from "./SearchField";
+import { Typography } from "@mui/material";
+import { heading } from "./Style";
 
 const PlayerDetails = () => {
   const [playerData, setPlayerData] = useState([]);
@@ -28,17 +30,18 @@ const PlayerDetails = () => {
         searchArr={searchArr}
         setSearchArr={setSearchedArr}
       />
+      <Typography style={heading}>Player Details</Typography>
 
       {searchArr?.length > 0 ? (
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 16 }}
+          columns={{ xs: 4, sm: 8, md: 16, lg: 20 }}
         >
           {searchArr
             ?.sort((a, b) => a.Value - b.Value)
             .map((value) => (
-              <Grid item xs={2} sm={4} md={4}>
+              <Grid item xs={2} sm={4} md={4} key={value.Id}>
                 <PlayerCards playerData={value} />
               </Grid>
             ))}
@@ -47,12 +50,12 @@ const PlayerDetails = () => {
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 16 }}
+          columns={{ xs: 4, sm: 8, md: 12, lg: 20 }}
         >
           {playerData?.playerList
             ?.sort((a, b) => a.Value - b.Value)
             .map((value) => (
-              <Grid item xs={2} sm={4} md={4}>
+              <Grid item xs={2} sm={4} md={4} key={value.Id}>
                 <PlayerCards playerData={value} />
               </Grid>
             ))}

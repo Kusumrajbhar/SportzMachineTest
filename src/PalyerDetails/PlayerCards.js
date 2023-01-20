@@ -3,40 +3,69 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
-import { cardStyling, imageStyle } from "./Style";
+import { cardStyling, imageStyle, dateTime } from "./Style";
 
 export const PlayerCards = ({ playerData }) => {
-  //   console.log(playerData.UpComingMatchesList[0].CCode, "kus props");
   return (
     <Card style={cardStyling} sx={{ minWidth: 275 }}>
       <CardContent>
         <CardMedia
           component="img"
-          height="300px"
+          height="320px"
           image={`/player-images/${playerData?.Id}.jpg`}
           alt={playerData?.PFName}
           style={imageStyle}
         />
-
-        <Typography variant="h5" component="div">
+        <Typography sx={{ textShadow: "2px 2px 5px lightgrey" }} variant="h5">
           {playerData?.PFName}
         </Typography>
 
-        <Typography variant="h6" component="div">
-          {playerData?.TName}
-        </Typography>
+        <Typography variant="h6">{playerData?.TName}</Typography>
 
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          Value: {playerData?.Value}
+          ${playerData?.Value}
         </Typography>
 
-        <Typography variant="body2">
-          CCode: {playerData?.UpComingMatchesList[0]?.CCode}
-          VsCCode: {playerData?.UpComingMatchesList[0]?.VsCCode}
+        <Typography
+          variant="body2"
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            mr: "5%",
+            ml: "5%",
+          }}
+        >
+          <Typography>
+            CCode:{" "}
+            {`${
+              playerData?.UpComingMatchesList[0]?.CCode
+                ? playerData?.UpComingMatchesList[0]?.CCode
+                : "--"
+            }`}
+          </Typography>
+          <Typography>
+            VsCCode:{" "}
+            {`${
+              playerData?.UpComingMatchesList[0]?.VsCCode
+                ? playerData?.UpComingMatchesList[0]?.VsCCode
+                : "--"
+            }`}
+          </Typography>
         </Typography>
 
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Date & Time: {playerData?.UpComingMatchesList[0]?.MDate}
+        <hr />
+
+        <Typography
+          style={dateTime}
+          sx={{ fontSize: 14 }}
+          color="text.secondary"
+          gutterBottom
+        >
+          {`${
+            playerData?.UpComingMatchesList[0]?.MDate
+              ? playerData?.UpComingMatchesList[0]?.MDate
+              : "---"
+          }`}
         </Typography>
       </CardContent>
     </Card>
